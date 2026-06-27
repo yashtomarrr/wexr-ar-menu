@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#E8C766"/><stop offset="100%" stop-color="#B8922E"/></linearGradient></defs>
+  <circle cx="60" cy="60" r="54" fill="none" stroke="url(#g)" stroke-width="2.5"/>
+  <circle cx="60" cy="60" r="44" fill="none" stroke="url(#g)" stroke-width="1" stroke-opacity="0.5"/>
+  <text x="60" y="74" font-family="Georgia, serif" font-size="46" text-anchor="middle" fill="url(#g)">M</text>
+</svg>

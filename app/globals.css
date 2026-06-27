@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Theme variables. These DEFAULTS are overridden at runtime in app/layout.tsx
+ * from data/restaurant.config.ts, so re-skinning a restaurant = edit config only.
+ * Values are space-separated RGB channels so Tailwind's <alpha-value> works.
+ */
+:root {
+  --bg: 10 10 10;          /* near-black background      */
+  --surface: 20 18 16;     /* card surface               */
+  --elevated: 28 25 21;    /* elevated panels            */
+  --gold: 212 175 55;      /* primary gold accent        */
+  --gold-soft: 191 161 74; /* muted gold                 */
+  --ink: 245 240 232;      /* primary text (warm white)  */
+  --muted: 168 160 148;    /* secondary text             */
+  --line: 255 255 255;     /* hairline (used at low alpha)*/
+  --veg: 34 197 94;
+  --nonveg: 239 68 68;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  background-color: rgb(var(--bg));
+  color: rgb(var(--ink));
+  font-family: var(--font-sans);
+}
+
+body {
+  /* subtle warm vignette so black never looks flat */
+  background-image: radial-gradient(
+    ellipse 90% 60% at 50% -10%,
+    rgba(212, 175, 55, 0.07) 0%,
+    transparent 60%
+  );
+  min-height: 100dvh;
+}
+
+/* Thin custom scrollbar for the premium feel */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.25);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Gold gradient text helper */
+.text-gold-gradient {
+  background: linear-gradient(180deg, rgb(var(--gold)) 0%, rgb(var(--gold-soft)) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Hairline border using the --line variable at low alpha */
+.border-hairline {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Hide scrollbars on horizontal scrollers (category tabs) */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Skeleton shimmer used by loading states */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.04) 25%,
+    rgba(255, 255, 255, 0.09) 37%,
+    rgba(255, 255, 255, 0.04) 63%
+  );
+  background-size: 200% 100%;
+}
