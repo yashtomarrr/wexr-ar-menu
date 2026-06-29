@@ -54,11 +54,13 @@ export interface CartLine {
   quantity: number;
 }
 
+// Kitchen flow: New -> Preparing -> Served -> Completed (delivered & done).
+// 'Cancelled' is a terminal side-exit.
 export type OrderStatus =
-  | 'Pending'
+  | 'New'
   | 'Preparing'
-  | 'Ready'
-  | 'Delivered'
+  | 'Served'
+  | 'Completed'
   | 'Cancelled';
 
 export interface CustomerInfo {

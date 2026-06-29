@@ -36,7 +36,7 @@ export default function CheckoutPage() {
     const order: Order = {
       id: uid(),
       createdAt: Date.now(),
-      status: 'Pending',
+      status: 'New',
       items: lines,
       customer: form,
       total: sum,

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Plus, Pencil, Trash2, RotateCcw, Eye, EyeOff } from 'lucide-react';
 import type { Dish } from '@/types';
@@ -29,7 +30,8 @@ export default function AdminPage() {
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="font-display text-3xl">Menu Manager</h1>
+          <Link href="/dashboard" className="text-xs text-gold hover:underline">← Order Panel</Link>
+          <h1 className="mt-1 font-display text-3xl">Menu Manager</h1>
           <p className="mt-1 text-sm text-muted">Add, edit or remove dishes — no coding required.</p>
         </div>
         <div className="flex gap-2">

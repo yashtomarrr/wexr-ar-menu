@@ -8,16 +8,16 @@ import { formatPrice, shortId, timeAgo } from '@/utils/format';
 
 /** Next status in the kitchen flow (the primary action button advances it). */
 const NEXT: Partial<Record<OrderStatus, OrderStatus>> = {
-  Pending: 'Preparing',
-  Preparing: 'Ready',
-  Ready: 'Delivered',
+  New: 'Preparing',
+  Preparing: 'Served',
+  Served: 'Completed',
 };
 
 const STATUS_STYLE: Record<OrderStatus, string> = {
-  Pending: 'bg-gold/15 text-gold ring-gold/30',
+  New: 'bg-gold/15 text-gold ring-gold/30',
   Preparing: 'bg-blue-500/15 text-blue-300 ring-blue-400/30',
-  Ready: 'bg-veg/15 text-veg ring-veg/30',
-  Delivered: 'bg-white/10 text-muted ring-white/15',
+  Served: 'bg-veg/15 text-veg ring-veg/30',
+  Completed: 'bg-white/10 text-muted ring-white/15',
   Cancelled: 'bg-nonveg/15 text-nonveg ring-nonveg/30',
 };
 
@@ -29,7 +29,7 @@ export function OrderCard({
   onStatus: (id: string, status: OrderStatus) => void;
 }) {
   const next = NEXT[order.status];
-  const closed = order.status === 'Delivered' || order.status === 'Cancelled';
+  const closed = order.status === 'Completed' || order.status === 'Cancelled';
 
   return (
     <motion.div

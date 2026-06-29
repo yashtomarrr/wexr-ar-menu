@@ -17,9 +17,16 @@ backend mode — perfect for a single-venue demo.
 | Key | When | Value |
 |-----|------|-------|
 | `NEXT_PUBLIC_SITE_URL` | always | Your prod URL, e.g. `https://menu.yourrestaurant.com` (makes QR codes absolute) |
+| `ADMIN_ID` | always | Restaurant login ID handed over by WeXR |
+| `ADMIN_PASSWORD` | always | Restaurant login password |
+| `AUTH_SECRET` | always | Long random string used to sign the session cookie |
 | `NEXT_PUBLIC_BACKEND` | for real orders | `supabase` |
 | `NEXT_PUBLIC_SUPABASE_URL` | if supabase | from Supabase project settings |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | if supabase | from Supabase project settings |
+
+> `ADMIN_ID` / `ADMIN_PASSWORD` / `AUTH_SECRET` are **server-only** (no
+> `NEXT_PUBLIC_` prefix) so they never reach the browser. Set a unique set per
+> restaurant.
 
 > Set `NEXT_PUBLIC_SITE_URL` **before** printing QR codes so they point at the
 > live domain.

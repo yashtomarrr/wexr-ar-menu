@@ -78,14 +78,16 @@ export default function ConfirmationPage() {
             </div>
           )}
 
-          <div className="mt-6 flex gap-3">
-            <Link href="/menu" className="flex-1">
-              <Button variant="secondary" fullWidth>
+          <p className="mt-4 text-xs text-muted">
+            A team member will bring your order to table{' '}
+            {order ? <span className="text-ink">{order.customer.table}</span> : 'shortly'}.
+          </p>
+
+          <div className="mt-6">
+            <Link href="/menu">
+              <Button fullWidth size="lg">
                 Order More
               </Button>
-            </Link>
-            <Link href="/dashboard" className="flex-1">
-              <Button fullWidth>Track Order</Button>
             </Link>
           </div>
         </motion.div>

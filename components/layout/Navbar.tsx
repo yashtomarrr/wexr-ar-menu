@@ -20,11 +20,11 @@ export function Navbar() {
   // AR fullscreen route hides the chrome for an immersive feel
   if (pathname?.startsWith('/ar/')) return null;
 
+  // Customer-facing nav only. Staff reach the panel via /login (middleware-guarded).
   const links = [
     { href: '/', label: 'Home' },
     { href: '/menu', label: 'Menu' },
-    { href: '/dashboard', label: 'Dashboard' },
-    { href: '/admin', label: 'Admin' },
+    { href: '/login', label: 'Staff' },
   ];
 
   return (

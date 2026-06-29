@@ -40,13 +40,49 @@ npm run dev
 # open http://localhost:3000
 ```
 
-That's it — it runs with **no configuration**. Orders are stored locally and the
-dashboard updates live across browser tabs. Try it:
+That's it — it runs with **no configuration**. Try it:
 
 1. Open `/menu`, tap **View in AR** on a dish (use a phone for real AR placement).
-2. Add items → checkout at `/checkout`.
-3. Open `/dashboard` in another tab → watch the order arrive live.
-4. Manage the menu at `/admin`.
+2. Add items → checkout at `/checkout` (name, phone, table, notes).
+3. Open the **restaurant panel** at `/login` and sign in with the demo credentials:
+   - **ID:** `admin`  **Password:** `wexr1234`
+4. See the order under **Orders**, advance it New → Preparing → Served → Completed,
+   and check the **Analytics** tab for daily/monthly revenue.
+5. Manage dishes (price, availability, 3D model) under **Menu** (`/admin`).
+
+> The customer menu (`/`, `/menu`, `/ar/...`) is public. `/dashboard` and
+> `/admin` are protected by login (`middleware.ts`).
+
+---
+
+## 🔐 Restaurant login (handover model)
+
+WeXR hands each restaurant **one ID + password**. Set them as environment
+variables (server-only — never exposed to the browser):
+
+```bash
+ADMIN_ID=thespicegarden
+ADMIN_PASSWORD=a-strong-password
+AUTH_SECRET=any-long-random-string   # signs the session cookie
+```
+
+Login is validated server-side (`app/api/login`) and stored in an httpOnly,
+HMAC-signed cookie. To scale to many independent restaurant accounts later,
+swap `lib/auth.ts` + `middleware.ts` for **Supabase Auth** — nothing else changes.
+
+## 📊 Orders & revenue (the panel's main job)
+
+- **Orders tab** — every order placed from the menu, with item, quantity, table,
+  time and status. One tap advances **New → Preparing → Served → Completed**
+  (or Cancel). "Completed" = delivered & done.
+- **Analytics tab** — orders today, orders this month, **revenue this month**,
+  all-time revenue, average order value, most popular item, and a **per-day
+  revenue chart** for the current month. All transparent, derived from orders.
+
+> Orders default to **local** storage (one device/kiosk). For orders placed on
+> customers' own phones to reach the panel — and for revenue to persist across
+> devices — enable the **Supabase** backend (`NEXT_PUBLIC_BACKEND=supabase`).
+> See **DEPLOYMENT.md**.
 
 ---
 
@@ -61,8 +97,12 @@ app/                       # Next.js App Router pages
   cart/ (drawer)           #   cart lives in a global drawer
   checkout/                #   customer details + submit
   order-confirmation/[id]/ #   success screen
-  dashboard/               #   live kitchen dashboard
-  admin/                   #   menu manager (no-code)
+  login/                   #   restaurant panel login
+  api/login, api/logout    #   credential auth (sets httpOnly cookie)
+  dashboard/               #   order panel: Orders + Analytics tabs (protected)
+  admin/                   #   menu manager, no-code (protected)
+middleware.ts              # route guard for /dashboard + /admin
+lib/auth.ts                # HMAC session cookie (Web Crypto)
 components/
   ui/                      # Button, Badges, QuantitySelector, Spinner
   layout/                  # Navbar, Footer

@@ -20,7 +20,7 @@ export function StatsBar({ orders }: { orders: Order[] }) {
       .reduce((sum, o) => sum + o.total, 0);
 
     const active = orders.filter((o) =>
-      ['Pending', 'Preparing', 'Ready'].includes(o.status),
+      ['New', 'Preparing', 'Served'].includes(o.status),
     ).length;
 
     const counts = new Map<string, number>();
